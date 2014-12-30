@@ -13,12 +13,13 @@
         android:id="@+id/ripple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android_custom:rv_type="doubleRipple" >
+        android_custom:rv_type="doubleRipple"
+		android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:text="@string/click_here" />
     </com.flybean.study.view.RippleView>
 
     <com.flybean.study.view.CircleProgress
