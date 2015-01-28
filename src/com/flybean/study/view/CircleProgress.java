@@ -1,7 +1,5 @@
 package com.flybean.study.view;
 
-import com.flybean.study.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -14,8 +12,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import com.flybean.study.R;
 
 
 public class CircleProgress extends View {
@@ -112,7 +111,7 @@ public class CircleProgress extends View {
 		 * 画最外层的大圆环
 		 */
 		int centre = getWidth() / 2; // 获取圆心的x坐标
-		int radius = (int) (centre - roundWidth / 2); // 圆环的半径
+		int radius = (int) (centre - roundWidth); // 圆环的半径
 		paint.setColor(roundColor); // 设置圆环的颜色
 		paint.setStyle(Paint.Style.STROKE); // 设置空心
 		paint.setStrokeWidth(roundWidth); // 设置圆环的宽度
@@ -130,16 +129,22 @@ public class CircleProgress extends View {
 		float textWidth = paint.measureText("" + percent); // 测量字体宽度，我们需要根据字体的宽度设置在圆环中间
 
 		if (textIsDisplayable && style == STROKE) {
-			canvas.drawText("" + percent, centre - textWidth / 2, centre + textSize / 2, paint); // 画出进度百分比
+			canvas.drawText("" + percent, centre - textWidth / 2, centre + textSize / 2 + radius / 6, paint); // 画出进度百分比
 		}
 		
-		Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.sound_icon);
+		Bitmap bp = null;
+		if (progress==0) {
+			bp = BitmapFactory.decodeResource(getResources(), R.drawable.sound_mute);
+		} else {
+			bp = BitmapFactory.decodeResource(getResources(), R.drawable.sound_icon);
+		}
+		
 		Rect src = new Rect(0, 0, bp.getWidth(), bp.getHeight());
-		Rect dst = new Rect((int)(centre - radius + roundWidth), 
-				            (int)(centre - radius + roundWidth), 
-				            (int)(centre + radius - roundWidth), 
-				            (int)(centre + radius - roundWidth));
-		//canvas.drawBitmap(bp, src, dst, paint);
+		Rect dst = new Rect((int)(centre - radius / 3), 
+	            			(int)(centre - radius / 2 - radius / 3), 
+	            			(int)(centre + radius / 3), 
+	            			(int)(centre - radius / 2 + radius / 3));
+		canvas.drawBitmap(bp, src, dst, paint);
 
 		/**
 		 * 画圆弧 ，画圆环的进度
