@@ -38,6 +38,10 @@ public class MainActivity extends Activity {
 				return true;
 			}
 		}
+		if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+			progress.setMute(!progress.getMute());
+			return true;
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 

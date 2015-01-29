@@ -67,6 +67,11 @@ public class CircleProgress extends View {
 	 */
 	private int style;
 	
+	/**
+	 * æ≤“Ù
+	 */
+	private boolean mute ;
+	
 	public static final int STROKE = 0;
 	public static final int FILL = 1;
 	
@@ -133,7 +138,7 @@ public class CircleProgress extends View {
 		}
 		
 		Bitmap bp = null;
-		if (progress==0) {
+		if (mute) {
 			bp = BitmapFactory.decodeResource(getResources(), R.drawable.sound_mute);
 		} else {
 			bp = BitmapFactory.decodeResource(getResources(), R.drawable.sound_icon);
@@ -216,6 +221,14 @@ public class CircleProgress extends View {
 		
 	}
 	
+	public synchronized void setMute(boolean mute) {
+		this.mute = mute;
+		postInvalidate();
+	}
+	
+	public synchronized boolean getMute() {
+		return mute;
+	}
 	
 	public int getCricleColor() {
 		return roundColor;
